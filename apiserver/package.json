@@ -1,0 +1,13 @@
+{
+  "name": "apiserver",
+  "version": "0.1.0",
+  "description": "account server based on grpc",
+  "main": "index.js",
+  "repository": "https://github.com/erlangxk/mxaccount",
+  "author": "erlangxk",
+  "license": "MIT",
+  "dependencies": {
+    "grpc": "^1.6.0",
+    "uuid": "^3.1.0"
+  }
+}
