@@ -4,13 +4,12 @@ const {
 } = require('./api');
 
 const grpc = require('grpc');
-const proto= mxAccountProto()
+const proto = mxAccountProto()
 
 let server;
 let port;
 
 beforeAll(() => {
-    console.log("before all");
     server = createGrpcServer(proto);
     port = server.bind('localhost:0', grpc.ServerCredentials.createInsecure());
     server.start();
@@ -25,16 +24,13 @@ test("add new user", (done) => {
     client.addNewUser({
         name: "xxxx",
         password: "yyyy",
-    }, function (err, response) {
-
-        console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    }, function (err, result) {
         if (err) {
-            console.error(err);
+            done(err);
         } else {
-            console.log(response.code);
-            console.log(response.userId);
+            expect(result.code).toBe(0);
+            expect(result.userId.length).toBe(36);
+            done();
         }
-        expect(0).toBe(0);
-        done();
     })
 });
