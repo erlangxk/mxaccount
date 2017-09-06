@@ -12,11 +12,11 @@ service Register {
 }
 
 message NewUserReq {
-    required string name = 1;
-    required string password = 2;
+    string name = 1;
+    string password = 2;
 }
 
 message NewUserRes {
-    required int32 code =1;
-    optional string userId = 2;
+    int32 code =1;
+    string userId = 2;
 }
