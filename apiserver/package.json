@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "grpc": "^1.6.0",
+    "pg": "^7.3.0",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
