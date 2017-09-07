@@ -5,14 +5,18 @@ exports.up = (pgm) => {
             primaryKey: true
         },
         name: {
-            type: 'varchar(30)'
+            type: 'varchar(30)',
+            notNull: true,
+            unique: true,
         },
         password_hash: {
-            type: 'char(100)'
+            type: 'varchar(100)',
+            notNull: true,
         },
         create_time: {
-            type: 'bigint'
-        }
+            type: 'bigint',
+            notNull: true,
+        },
     });
 };
 

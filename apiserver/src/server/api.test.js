@@ -15,8 +15,8 @@ beforeAll(() => {
     server.start();
 });
 
-afterAll(() => {
-    server.forceShutdown();
+afterAll((done) => {
+    server.tryShutdown(() => done());
 });
 
 test("add new user", (done) => {
