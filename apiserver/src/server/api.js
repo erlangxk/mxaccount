@@ -1,25 +1,20 @@
-const grpc = require('grpc');
-const addNewUser = require('../service/addNewUser');
-const PROTO_PATH = __dirname + '/../../proto/external.proto';
+const {
+    Pool
+} = require('pg');
 
-function serviceImpl() {
-    return {
-        addNewUser
-    };
+const AccountService = require('../service/AccountService');
+const AccountClient = require('../postgres/Account');
+
+
+function createAccountService() {
+    const pool = new Pool({
+        connectionString: 'postgres://postgres:111111@localhost:5432/mxaccounts',
+    });
+    return new AccountService(new AccountClient(pool));
 }
 
-function mxAccountProto() {
-    return grpc.load(PROTO_PATH).mxaccount;
-}
-
-function createGrpcServer(proto) {
-    const service = proto.Register.service;
-    const server = new grpc.Server()
-    server.addService(service, serviceImpl());
-    return server;
-}
-
-module.exports = {
-    mxAccountProto,
-    createGrpcServer
+function startServer(){
+    const server = createGrpcServer(createAccountService);
+    server.bind('localhost:0', grpc.ServerCredentials.createInsecure());
+    server.start();
 }

@@ -14,38 +14,40 @@ function queryById(pool, id) {
     return pool.query(QUERY_BY_ID, [id]);
 }
 
-beforeAll(() => {
-    pool = new Pool({
-        connectionString: 'postgres://postgres:111111@localhost:5432/mxaccounts',
+describe("test the account client connecting to postgres", () => {
+    beforeAll(() => {
+        pool = new Pool({
+            connectionString: 'postgres://postgres:111111@localhost:5432/mxaccounts',
+        });
+        client = new AccountClient(pool);
     });
-    client = new AccountClient(pool);
-});
 
-beforeEach((done) => {
-    pool.query("delete from mx_accounts").then(_ => done());
-});
-
-afterAll(() => {
-    pool.end();
-})
-
-test("insert new account into database", async() => {
-    let result = await client.addAccount(id, "name", "passwordhash", 1);
-    expect(result.rowCount).toBe(1);
-    result = await queryById(pool, id);
-    expect(result.rows[0]).toEqual({
-        id,
-        name: 'name',
-        password_hash: 'passwordhash',
-        create_time: '1'
+    afterEach((done) => {
+        pool.query("delete from mx_accounts").then(_ => done());
     });
-});
 
-test("query the user by name", async() => {
-    await client.addAccount(id, "name", "passwordhash", 1);
-    const result = await client.queryAccount("name");
-    expect(result.rows[0]).toEqual({
-        id,
-        password_hash: 'passwordhash',
+    afterAll(() => {
+        pool.end();
+    })
+
+    test("insert new account into database", async() => {
+        let result = await client.addAccount(id, "name", "passwordhash", 1);
+        expect(result.rowCount).toBe(1);
+        result = await queryById(pool, id);
+        expect(result.rows[0]).toEqual({
+            id,
+            name: 'name',
+            password_hash: 'passwordhash',
+            create_time: '1'
+        });
+    });
+
+    test("query the user by name", async() => {
+        await client.addAccount(id, "name", "passwordhash", 1);
+        const result = await client.queryAccount("name");
+        expect(result.rows[0]).toEqual({
+            id,
+            password_hash: 'passwordhash',
+        });
     });
 });
