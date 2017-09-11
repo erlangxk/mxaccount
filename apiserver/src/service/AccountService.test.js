@@ -1,5 +1,7 @@
 const AccountService = require('./AccountService');
-const AccountClient = require('../postgres/Account');
+import {
+    AccountClient
+}  from '../postgres/Account';
 const {
     Pool
 } = require('pg');

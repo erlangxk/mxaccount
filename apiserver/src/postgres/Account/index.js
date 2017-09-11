@@ -2,7 +2,7 @@
 const insertSql='insert into mx_accounts (id, name, password_hash,create_time) values ($1,$2,$3,$4)';
 const querySql='select id, password_hash from mx_accounts where name=$1';
 
-class AccountClient {
+export class AccountClient {
     constructor(pool) {
         this.pool = pool;
     }
@@ -15,5 +15,3 @@ class AccountClient {
         return this.pool.query(querySql,[name]);
     }
 }
-
-module.exports = AccountClient;

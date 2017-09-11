@@ -1,4 +1,6 @@
-const AccountClient = require('./Account');
+import {
+    AccountClient
+} from './Account';
 const {
     Pool
 } = require('pg');

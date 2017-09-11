@@ -13,9 +13,13 @@
     "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "jest": "^21.0.1"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.0.2",
+    "babel-preset-env": "^1.6.0",
+    "jest": "^21.0.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "./node_modules/.bin/jest"
   }
 }
