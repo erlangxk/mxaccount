@@ -1,6 +1,6 @@
 import {
     AccountClient
-} from './Account';
+} from './AccountClient';
 
 import {
     Pool

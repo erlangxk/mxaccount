@@ -18,7 +18,7 @@ function addNewUserImpl(register) {
     };
 }
 
-export default function createServiceImpl({
+export default function ({
     register
 }) {
     return {
