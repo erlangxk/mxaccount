@@ -6,7 +6,7 @@ import {
 import uuid from 'uuid/v1';
 
 import {
-    AccountService
+    createAccountService
 } from './AccountService';
 
 function currentMillis() {
@@ -14,7 +14,7 @@ function currentMillis() {
 }
 
 export default function (accountClient) {
-    return new AccountService({ ...accountClient,
+    return createAccountService({ ...accountClient,
         hashPasswd,
         verifyPasswd,
         uuid,

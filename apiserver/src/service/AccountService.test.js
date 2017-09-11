@@ -1,5 +1,5 @@
 import {
-    AccountService
+    createAccountService
 } from './AccountService';
 
 describe("test account service", () => {
@@ -15,7 +15,7 @@ describe("test account service", () => {
         const verifyPasswd = (password, hash) => {
             return Promise.resolve(hash === 'passwordhash12' && password === 'passworddouglas');
         }
-        const service = new AccountService({
+        const service = createAccountService({
             queryAccount,
             verifyPasswd
         });
@@ -35,7 +35,7 @@ describe("test account service", () => {
         const verifyPasswd = (password, hash) => {
             return Promise.resolve(false);
         }
-        const service = new AccountService({
+        const service = createAccountService({
             queryAccount,
             verifyPasswd
         });
@@ -55,7 +55,7 @@ describe("test account service", () => {
         const verifyPasswd = (password, hash) => {
             return Promise.resolve(hash === 'passwordhash12' && password === 'passworddouglas');
         }
-        const service = new AccountService({
+        const service = createAccountService({
             queryAccount,
             verifyPasswd
         });
@@ -75,7 +75,7 @@ describe("test account service", () => {
         const verifyPasswd = (password, hash) => {
             return Promise.resolve(hash === 'passwordhash12' && password === 'passworddouglas');
         }
-        const service = new AccountService({
+        const service = createAccountService({
             queryAccount,
             verifyPasswd
         });
@@ -92,7 +92,7 @@ describe("test account service", () => {
         const verifyPasswd = (password, hash) => {
             return Promise.resolve(hash === 'passwordhash12' && password === 'passworddouglas');
         }
-        const service = new AccountService({
+        const service = createAccountService({
             queryAccount,
             verifyPasswd
         });
@@ -118,7 +118,7 @@ describe("test account service", () => {
         const uuid = () => "567890x";
         const currentMillis = () => 345678;
 
-        const service = new AccountService({
+        const service = createAccountService({
             addAccount,
             hashPasswd,
             uuid,
