@@ -10,6 +10,13 @@ import {
     Pool
 } from 'pg';
 
+import uuid from 'uuid/v1';
+
+import {
+    hashPasswd,
+    verifyPasswd
+} from '../utils/hash';
+
 let pool;
 let service;
 
@@ -18,7 +25,8 @@ describe("test account service", () => {
         pool = new Pool({
             connectionString: 'postgres://postgres:111111@localhost:5432/mxaccounts',
         });
-        service = new AccountService(new AccountClient(pool));
+        const client=new AccountClient(pool);
+        service = new AccountService({...client,hashPasswd,verifyPasswd,uuid});
     });
 
     beforeEach((done) => {
