@@ -1,8 +1,9 @@
 const uuid = require('uuid/v1');
-const {
+
+import {
     hashPasswd,
     verifyPasswd
-} = require('../utils/hash');
+} from '../utils/hash';
 
 class AccountService {
     constructor(accountClient) {

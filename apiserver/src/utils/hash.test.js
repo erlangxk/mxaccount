@@ -1,7 +1,7 @@
-const {
+import {
     hashPasswd,
     verifyPasswd
-} = require('./hash');
+} from './hash';
 
 test("hash password and verify it successfully", async() => {
     let result = await hashPasswd('marcus');
