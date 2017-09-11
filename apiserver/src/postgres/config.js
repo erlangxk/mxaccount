@@ -1,6 +1,6 @@
-const {
+import {
     Pool
-} = require('pg');
+} from 'pg';
 
 const config = {
     connectionString: 'postgres://postgres:111111@localhost:5432/mxaccounts',

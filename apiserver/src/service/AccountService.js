@@ -1,11 +1,11 @@
-const uuid = require('uuid/v1');
+import uuid from 'uuid/v1';
 
 import {
     hashPasswd,
     verifyPasswd
 } from '../utils/hash';
 
-class AccountService {
+export class AccountService {
     constructor(accountClient) {
         this.accountClient = accountClient;
     }
@@ -27,5 +27,3 @@ class AccountService {
         return false;
     }
 }
-
-module.exports = AccountService;

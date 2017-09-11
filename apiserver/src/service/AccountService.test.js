@@ -1,10 +1,14 @@
-const AccountService = require('./AccountService');
+import {
+    AccountService
+} from './AccountService';
+
 import {
     AccountClient
-}  from '../postgres/Account';
-const {
+} from '../postgres/Account';
+
+import {
     Pool
-} = require('pg');
+} from 'pg';
 
 let pool;
 let service;

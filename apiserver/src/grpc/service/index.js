@@ -18,12 +18,10 @@ function addNewUserImpl(register) {
     };
 }
 
-function createServiceImpl({
+export default function createServiceImpl({
     register
 }) {
     return {
         addNewUser: addNewUserImpl(register),
     };
 }
-
-module.exports = createServiceImpl

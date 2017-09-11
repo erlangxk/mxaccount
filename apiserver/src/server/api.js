@@ -1,9 +1,14 @@
-const {
+import {
     Pool
-} = require('pg');
+} from 'pg';
 
-const AccountService = require('../service/AccountService');
-const AccountClient = require('../postgres/Account');
+import {
+    AccountService
+} from '../service/AccountService';
+
+import {
+    AccountClient
+} from '../postgres/Account';
 
 
 function createAccountService() {
@@ -13,7 +18,7 @@ function createAccountService() {
     return new AccountService(new AccountClient(pool));
 }
 
-function startServer(){
+function startServer() {
     const server = createGrpcServer(createAccountService);
     server.bind('localhost:0', grpc.ServerCredentials.createInsecure());
     server.start();

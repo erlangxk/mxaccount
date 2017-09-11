@@ -1,9 +1,10 @@
 import {
     AccountClient
 } from './Account';
-const {
+
+import {
     Pool
-} = require('pg');
+} from 'pg';
 
 let pool;
 let client;

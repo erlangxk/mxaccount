@@ -1,7 +1,6 @@
-const createGrpcServer = require('./server');
-const PROTO_PATH = require('./proto');
-
-const grpc = require('grpc');
+import createGrpcServer from './server';
+import PROTO_PATH from './proto';
+import grpc from 'grpc';
 
 let server;
 let port;
