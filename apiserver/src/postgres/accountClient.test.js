@@ -1,5 +1,5 @@
 import {
-    AccountClient
+    createAccountClient
 } from './AccountClient';
 
 import {
@@ -22,7 +22,9 @@ describe("test the account client connecting to postgres", () => {
         pool = new Pool({
             connectionString: 'postgres://postgres:111111@localhost:5432/mxaccounts',
         });
-        client = new AccountClient(pool);
+        client = createAccountClient({
+            query: pool.query.bind(pool)
+        });
     });
 
     afterEach((done) => {

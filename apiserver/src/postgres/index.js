@@ -3,7 +3,7 @@ import {
 } from 'pg';
 
 import {
-    AccountClient
+    createAccountClient
 } from './AccountClient';
 
 const config = {
@@ -14,5 +14,5 @@ const config = {
 
 export default function () {
     const pool = new Pool(config);
-    return new AccountClient(pool);
+    return createAccountClient(pool.query.bind(pool));
 }
