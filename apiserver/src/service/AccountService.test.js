@@ -2,13 +2,13 @@ import {
     createAccountService
 } from './AccountService';
 
-describe("test account service", () => {
-    test("authenticate successfully", async() => {
-        const queryAccount = (name) => {
+describe('test account service', () => {
+    test('authenticate successfully', async() => {
+        const queryAccount = () => {
             return Promise.resolve({
                 rows: [{
-                    id: "123456",
-                    password_hash: "passwordhash12"
+                    id: '123456',
+                    password_hash: 'passwordhash12'
                 }]
             });
         }
@@ -19,36 +19,36 @@ describe("test account service", () => {
             queryAccount,
             verifyPasswd
         });
-        const result = await service.authenticate("douglas", "passworddouglas");
-        expect(result).toBe("123456");
+        const result = await service.authenticate('douglas', 'passworddouglas');
+        expect(result).toBe('123456');
     })
 
-    test("authenticate failed when verifyPasswd is false", async() => {
-        const queryAccount = (name) => {
+    test('authenticate failed when verifyPasswd is false', async() => {
+        const queryAccount = () => {
             return Promise.resolve({
                 rows: [{
-                    id: "123456",
-                    password_hash: "passwordhash12"
+                    id: '123456',
+                    password_hash: 'passwordhash12'
                 }]
             });
         }
-        const verifyPasswd = (password, hash) => {
+        const verifyPasswd = () => {
             return Promise.resolve(false);
         }
         const service = createAccountService({
             queryAccount,
             verifyPasswd
         });
-        const result = await service.authenticate("douglas", "passworddouglas");
+        const result = await service.authenticate('douglas', 'passworddouglas');
         expect(result).toBe(null);
     })
 
-    test("authenticate failed when id empty", async() => {
-        const queryAccount = (name) => {
+    test('authenticate failed when id empty', async() => {
+        const queryAccount = () => {
             return Promise.resolve({
                 rows: [{
-                    id: "",
-                    password_hash: "passwordhash12"
+                    id: '',
+                    password_hash: 'passwordhash12'
                 }]
             });
         }
@@ -59,16 +59,16 @@ describe("test account service", () => {
             queryAccount,
             verifyPasswd
         });
-        const result = await service.authenticate("douglas", "passworddouglas");
+        const result = await service.authenticate('douglas', 'passworddouglas');
         expect(result).toBe(null);
     })
 
-    test("authenticate failed when password_hash empty", async() => {
-        const queryAccount = (name) => {
+    test('authenticate failed when password_hash empty', async() => {
+        const queryAccount = () => {
             return Promise.resolve({
                 rows: [{
-                    id: "123456",
-                    password_hash: ""
+                    id: '123456',
+                    password_hash: ''
                 }]
             });
         }
@@ -79,12 +79,12 @@ describe("test account service", () => {
             queryAccount,
             verifyPasswd
         });
-        const result = await service.authenticate("douglas", "passworddouglas");
+        const result = await service.authenticate('douglas', 'passworddouglas');
         expect(result).toBe(null);
     })
 
-    test("authenticate failed when user not found", async() => {
-        const queryAccount = (name) => {
+    test('authenticate failed when user not found', async() => {
+        const queryAccount = () => {
             return Promise.resolve({
                 rows: []
             });
@@ -96,26 +96,26 @@ describe("test account service", () => {
             queryAccount,
             verifyPasswd
         });
-        const result = await service.authenticate("douglas", "passworddouglas");
+        const result = await service.authenticate('douglas', 'passworddouglas');
         expect(result).toBe(null);
     })
 
-    test("register user successfully", async() => {
+    test('register user successfully', async() => {
         const addAccount = (id, name, passwordHash, time) => {
-            if (name !== "douglas" || passwordHash !== "hashedpasswordxxx" || id !== "567890x" || time !== 345678) {
+            if (name !== 'douglas' || passwordHash !== 'hashedpasswordxxx' || id !== '567890x' || time !== 345678) {
                 return Promise.reject(new Error(`invalid arguments:${id},${name},${passwordHash},${time}`));
             } else {
                 return Promise.resolve(null);
             }
         }
         const hashPasswd = (password) => {
-            if (password !== "passworddouglas") {
+            if (password !== 'passworddouglas') {
                 return Promise.reject(new Error('invalid arguments'));
             } else {
-                return Promise.resolve("hashedpasswordxxx");
+                return Promise.resolve('hashedpasswordxxx');
             }
         }
-        const uuid = () => "567890x";
+        const uuid = () => '567890x';
         const currentMillis = () => 345678;
 
         const service = createAccountService({
@@ -125,7 +125,7 @@ describe("test account service", () => {
             currentMillis
         });
 
-        const result = await service.register("douglas", "passworddouglas")
-        expect(result).toBe("567890x")
+        const result = await service.register('douglas', 'passworddouglas')
+        expect(result).toBe('567890x')
     });
 });

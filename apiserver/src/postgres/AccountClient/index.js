@@ -13,4 +13,4 @@ export function createAccountClient({
             return query(querySql, [name]);
         }
     }
-};
+}

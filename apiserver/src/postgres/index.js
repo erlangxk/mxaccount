@@ -14,5 +14,7 @@ const config = {
 
 export default function () {
     const pool = new Pool(config);
-    return createAccountClient(pool.query.bind(pool));
+    return createAccountClient({
+        query: pool.query.bind(pool)
+    });
 }

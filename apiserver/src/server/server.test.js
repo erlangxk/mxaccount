@@ -14,14 +14,14 @@ function createClient(port) {
     return new proto.Register(`localhost:${port}`, grpc.credentials.createInsecure())
 }
 
-function mockRegisterSucceed(name, password) {
-    if (name === "xxxx") {
-        return Promise.resolve("id");
+function mockRegisterSucceed(name) {
+    if (name === 'xxxx') {
+        return Promise.resolve('id');
     } else {
-        return Promise.reject(new Error("something is wrong"));
+        return Promise.reject(new Error('something is wrong'));
     }
 }
-describe.skip("test grpc server with mock impl", () => {
+describe.skip('test grpc server with mock impl', () => {
     beforeAll(() => {
         server = new grpc.Server();
         addGrpcService(server)(createServiceImpl({
@@ -35,24 +35,24 @@ describe.skip("test grpc server with mock impl", () => {
         server.tryShutdown(() => done());
     });
 
-    test("add new user successfully", (done) => {
+    test('add new user successfully', (done) => {
         const client = createClient(port);
         client.addNewUser({
-            name: "xxxx",
-            password: "yyyy",
+            name: 'xxxx',
+            password: 'yyyy',
         }, function (err, result) {
             expect(err).toBeFalsy();
             expect(result.code).toBe(0);
-            expect(result.userId).toBe("id");
+            expect(result.userId).toBe('id');
             done();
         })
     });
 
-    test("add new user failed", (done) => {
+    test('add new user failed', (done) => {
         const client = createClient(port);
         client.addNewUser({
-            name: "xxxxk",
-            password: "yyyy",
+            name: 'xxxxk',
+            password: 'yyyy',
         }, function (err, result) {
             expect(err).toBeFalsy();
             expect(result.code).toBe(1);
