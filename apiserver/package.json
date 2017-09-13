@@ -25,7 +25,8 @@
   "scripts": {
     "test": "./node_modules/.bin/jest",
     "coverage": "./node_modules/.bin/jest --coverage",
-    "serve": "./node_modules/.bin/babel-node ./src/server/index.js",
+    "server": "./node_modules/.bin/babel-node ./src/server/index.js",
+    "client": "./node_modules/.bin/babel-node ./src/client/index.js",
     "lint": "./node_modules/.bin/eslint src"
   }
 }
