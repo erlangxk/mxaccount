@@ -27,8 +27,8 @@ describe('test the account client connecting to postgres', () => {
         });
     });
 
-    afterEach((done) => {
-        pool.query(DELETE_SQL).then(()=>done());
+    afterEach(() => {
+        return pool.query(DELETE_SQL);
     });
 
     afterAll(() => {

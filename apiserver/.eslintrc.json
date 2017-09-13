@@ -1,5 +1,8 @@
 {
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:promise/recommended"
+    ],
     "env": {
         "commonjs": true,
         "node": true,
@@ -26,5 +29,8 @@
             "error",
             "single"
         ]
-    }
+    },
+    "plugins": [
+        "promise"
+    ]
 }
