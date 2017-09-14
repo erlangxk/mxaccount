@@ -2,8 +2,12 @@ import {
     createAccountService
 } from './AccountService';
 
+import {
+    validateUsername, validatePassword
+} from '../validation/Account';
+
 describe('test account service', () => {
-    test('authenticate successfully', async() => {
+    test('authenticate successfully', async () => {
         const queryAccount = () => {
             return Promise.resolve({
                 rows: [{
@@ -16,6 +20,8 @@ describe('test account service', () => {
             return Promise.resolve(hash === 'passwordhash12' && password === 'passworddouglas');
         }
         const service = createAccountService({
+            validateUsername,
+            validatePassword,
             queryAccount,
             verifyPasswd
         });
@@ -23,7 +29,7 @@ describe('test account service', () => {
         expect(result).toBe('123456');
     })
 
-    test('authenticate failed when verifyPasswd is false', async() => {
+    test('authenticate failed when verifyPasswd is false', async () => {
         const queryAccount = () => {
             return Promise.resolve({
                 rows: [{
@@ -37,13 +43,18 @@ describe('test account service', () => {
         }
         const service = createAccountService({
             queryAccount,
-            verifyPasswd
+            verifyPasswd,
+            validateUsername,
+            validatePassword,
         });
-        const result = await service.authenticate('douglas', 'passworddouglas');
-        expect(result).toBe(null);
+        try {
+            await service.authenticate('douglas', 'passworddouglas');
+        } catch (err) {
+            expect(err).toEqual(new Error('no match account found'));
+        }
     })
 
-    test('authenticate failed when id empty', async() => {
+    test('authenticate failed when id empty', async () => {
         const queryAccount = () => {
             return Promise.resolve({
                 rows: [{
@@ -57,13 +68,18 @@ describe('test account service', () => {
         }
         const service = createAccountService({
             queryAccount,
-            verifyPasswd
+            verifyPasswd,
+            validateUsername,
+            validatePassword,
         });
-        const result = await service.authenticate('douglas', 'passworddouglas');
-        expect(result).toBe(null);
+        try {
+            await service.authenticate('douglas', 'passworddouglas');
+        } catch (err) {
+            expect(err).toEqual(new Error('no match account found'));
+        }
     })
 
-    test('authenticate failed when password_hash empty', async() => {
+    test('authenticate failed when password_hash empty', async () => {
         const queryAccount = () => {
             return Promise.resolve({
                 rows: [{
@@ -77,13 +93,18 @@ describe('test account service', () => {
         }
         const service = createAccountService({
             queryAccount,
-            verifyPasswd
+            verifyPasswd,
+            validateUsername,
+            validatePassword,
         });
-        const result = await service.authenticate('douglas', 'passworddouglas');
-        expect(result).toBe(null);
+        try {
+            await service.authenticate('douglas', 'passworddouglas');
+        } catch (err) {
+            expect(err).toEqual(new Error('no match account found'));
+        }
     })
 
-    test('authenticate failed when user not found', async() => {
+    test('authenticate failed when user not found', async () => {
         const queryAccount = () => {
             return Promise.resolve({
                 rows: []
@@ -94,13 +115,18 @@ describe('test account service', () => {
         }
         const service = createAccountService({
             queryAccount,
-            verifyPasswd
+            verifyPasswd,
+            validateUsername,
+            validatePassword,
         });
-        const result = await service.authenticate('douglas', 'passworddouglas');
-        expect(result).toBe(null);
+        try {
+            await service.authenticate('douglas', 'passworddouglas');
+        } catch (err) {
+            expect(err).toEqual(new Error('no match account found'));
+        }
     })
 
-    test('register user successfully', async() => {
+    test('register user successfully', async () => {
         const addAccount = (id, name, passwordHash, time) => {
             if (name !== 'douglas' || passwordHash !== 'hashedpasswordxxx' || id !== '567890x' || time !== 345678) {
                 return Promise.reject(new Error(`invalid arguments:${id},${name},${passwordHash},${time}`));
@@ -122,7 +148,9 @@ describe('test account service', () => {
             addAccount,
             hashPasswd,
             uuid,
-            currentMillis
+            currentMillis,
+            validateUsername,
+            validatePassword,
         });
 
         const result = await service.register('douglas', 'passworddouglas')
