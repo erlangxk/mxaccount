@@ -9,5 +9,5 @@ const checkLenth = (min, max) => (source) => {
     return len <= max && len >= min;
 }
 
-export const validateUsername = R.both(checkLenth(6, 100), checkPattern(/^[\w.-]+$/));
+export const validateUsername = R.both(checkLenth(6, 30), checkPattern(/^[\w.-]+$/));
 export const validatePassword = checkLenth(8, 100);
